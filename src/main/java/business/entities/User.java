@@ -2,6 +2,12 @@ package business.entities;
 
 public class User
 {
+    private String name;
+    private String email;
+    private String password; // Should be hashed and secured
+    private String role;
+    private int konto_id;
+    private int id; // just used to demo retrieval of autogen keys in UserMapper
 
     public User(String name,String email, String password, String role, int konto_id)
     {
@@ -13,12 +19,6 @@ public class User
     }
 
 
-    private String name;
-    private String email;
-    private String password; // Should be hashed and secured
-    private String role;
-    private int konto_id;
-    private int id; // just used to demo retrieval of autogen keys in UserMapper
 
 
     public int getKonto_id() {

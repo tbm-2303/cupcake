@@ -10,9 +10,19 @@
     </jsp:attribute>
 
     <jsp:body>
-        <h1>Hello ${sessionScope.email} </h1>
-        You are now logged in as a Customer of our wonderful site.
+        <h1>Hello ${sessionScope.name} </h1>
+        You are now logged in as a Customer.
+        <br>
+        Email: ${sessionScope.email}
+        <br>
         Role: ${sessionScope.role}
+        <br>
+        UserId: ${sessionScope.userId}
+        <br>
+        <p><a href= "${pageContext.request.contextPath}/fc/orderpage">Ordering Page</a>
+
+
+
     </jsp:body>
 
 </t:genericpage>

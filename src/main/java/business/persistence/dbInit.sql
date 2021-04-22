@@ -2,7 +2,7 @@
     You might want to rename the database to your own needs.
     If so, please substitute `startcode` with whatever your project is called.
  */
-
+/*
 CREATE DATABASE  IF NOT EXISTS `startcode`;
 
 USE `startcode`;
@@ -24,3 +24,6 @@ INSERT INTO `users` VALUES
 (3,'robin@gotham.com','batman','employee');
 UNLOCK TABLES;
 
+
+
+ */
