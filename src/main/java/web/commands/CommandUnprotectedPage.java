@@ -5,6 +5,7 @@ import business.persistence.Database;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
 
 public class CommandUnprotectedPage extends Command
 {
@@ -17,8 +18,7 @@ public class CommandUnprotectedPage extends Command
 
     public String execute(
             HttpServletRequest request,
-            HttpServletResponse response) throws UserException
-    {
+            HttpServletResponse response) throws UserException, SQLException {
         return pageToShow;
     }
 }

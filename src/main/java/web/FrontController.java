@@ -6,6 +6,7 @@ import web.commands.*;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -68,7 +69,7 @@ public class FrontController extends HttpServlet
 
             request.getRequestDispatcher("/WEB-INF/" + view + ".jsp").forward(request, response);
         }
-        catch (UnsupportedEncodingException | UserException ex)
+        catch (UnsupportedEncodingException | UserException | SQLException ex)
         {
             request.setAttribute("problem", ex.getMessage());
             Logger.getLogger("web").log(Level.SEVERE, ex.getMessage(), ex);
