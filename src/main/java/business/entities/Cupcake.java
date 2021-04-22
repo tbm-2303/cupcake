@@ -5,12 +5,12 @@ public class Cupcake {
     int cupcakeId;//?
     int topId;
     int bottomId;
-    int price;
+    int amount;
 
-    public Cupcake(int topId, int bottomId, int price) {
+    public Cupcake(int topId, int bottomId, int amount) {
         this.topId = topId;
         this.bottomId = bottomId;
-        this.price = price;
+        this.amount = amount;
     }
 
 
@@ -41,11 +41,11 @@ public class Cupcake {
         this.bottomId = bottomId;
     }
 
-    public int getPrice() {
-        return price;
+    public int getAmount() {
+        return amount;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }

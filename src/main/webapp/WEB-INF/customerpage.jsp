@@ -21,6 +21,11 @@
         <br>
         <p><a href= "${pageContext.request.contextPath}/fc/orderpage">Ordering Page</a>
 
+        <br>
+            Bottom Id: ${sessionScope.bottom}<br>
+            Top Id: ${sessionScope.top}<br>
+            Amount: ${sessionScope.amount}<br></p>
+
 
 
     </jsp:body>

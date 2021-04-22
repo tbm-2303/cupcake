@@ -4,6 +4,7 @@ import business.entities.Cupcake;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class CupcakeCommand extends CommandProtectedPage {
 
@@ -19,12 +20,14 @@ public class CupcakeCommand extends CommandProtectedPage {
         int bottomId = Integer.parseInt(request.getParameter("bottom"));
         int amount = Integer.parseInt(request.getParameter("amount"));
 
+        Cupcake cupcake = new Cupcake(topId,bottomId,amount);
 
-        request.setAttribute("top",topId);
-        request.setAttribute("bottom",bottomId);
-        request.setAttribute("amount",amount);
+        HttpSession session = request.getSession();
+        session.setAttribute("top",topId);
+        session.setAttribute("bottom",bottomId);
+        session.setAttribute("amount",amount);
 
 
-        return pageToShow;
+        return REDIRECT_INDICATOR+pageToShow;
     }
 }
