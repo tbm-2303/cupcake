@@ -3,9 +3,9 @@ package business.entities;
 public class Account {
 
 private int konto_id;
-private double balance;
+private int balance;
 
-    public Account(double balance) {
+    public Account(int balance) {
 
         this.balance = balance;
     }
@@ -18,11 +18,11 @@ private double balance;
         this.konto_id = konto_id;
     }
 
-    public double getBalance() {
+    public int getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(int balance) {
         this.balance = balance;
     }
 }

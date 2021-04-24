@@ -33,10 +33,12 @@
         <c:if test="${addHomeLink == null }">
             <a class="p-2 text-dark" href="<%=request.getContextPath()%>">Home</a>
         </c:if>
-        <a class="p-2 text-dark" href="#">Orders</a>
+
+        <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/cartpage">ShoppingCart</a>
         <a class="p-2 text-dark" href="#">Profile</a>
         <a class="p-2 text-dark" href="#">About</a>
     </nav>
+
 
     <div>
 
