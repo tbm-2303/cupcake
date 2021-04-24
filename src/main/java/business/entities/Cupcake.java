@@ -6,6 +6,7 @@ public class Cupcake {
     int topId;
     int bottomId;
     int amount;
+    int price;
 
     public Cupcake(int topId, int bottomId, int amount) {
         this.topId = topId;
@@ -47,5 +48,14 @@ public class Cupcake {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }

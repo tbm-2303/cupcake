@@ -8,11 +8,26 @@ import java.sql.*;
 public class CupcakeMapper {
     private Database database;
 
-    public CupcakeMapper(Database database)
-    {
+    public CupcakeMapper(Database database) {
         this.database = database;
 
 
+    }
+
+    public void insertIntoLinkTable(int cart_id, int cupcake_id) throws UserException {
+        try (Connection connection = database.connect()) {
+            String sql = "INSERT INTO link_cart_cupcakes (cart_id,cupcake_id) VALUES (?,?)";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, cart_id);
+                ps.setInt(2, cupcake_id);
+                ps.executeUpdate();
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
+            }
+        } catch (SQLException ex) {
+            throw new UserException(ex.getMessage());
+        }
     }
 
     public Cupcake makeCupcake(Cupcake cupcake) throws UserException {

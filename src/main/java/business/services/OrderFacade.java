@@ -1,7 +1,11 @@
 package business.services;
 
+import business.entities.Order;
+import business.exceptions.UserException;
 import business.persistence.Database;
 import business.persistence.OrderMapper;
+
+import java.sql.SQLException;
 
 public class OrderFacade {
 
@@ -9,5 +13,11 @@ public class OrderFacade {
 
     public OrderFacade(Database database) {
         orderMapper = new OrderMapper(database);
+    }
+
+    public Order createOrder(int user_id, int price, int cart_id)throws SQLException, UserException{
+        Order order = new Order(user_id,price,cart_id);
+        return orderMapper.createOrder(order);
+
     }
 }

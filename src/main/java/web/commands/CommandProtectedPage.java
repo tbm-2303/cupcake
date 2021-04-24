@@ -5,6 +5,7 @@ import business.exceptions.UserException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.sql.SQLException;
 
 public class CommandProtectedPage extends Command
 {
@@ -19,7 +20,7 @@ public class CommandProtectedPage extends Command
     }
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException, SQLException {
         return pageToShow;
     }
 

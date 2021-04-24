@@ -2,20 +2,25 @@ package web.commands;
 
 import business.entities.Cart;
 import business.entities.Cupcake;
+import business.entities.Order;
 import business.exceptions.UserException;
 import business.services.CupcakeFacade;
 import business.services.OrderFacade;
 import business.services.UserFacade;
+import business.services.priceUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateOrderCommand extends CommandProtectedPage{
+public class CreateOrderCommand extends CommandProtectedPage {
     private OrderFacade orderFacade;
     private CupcakeFacade cupcakeFacade;
     private UserFacade userFacade;
+
 
     public CreateOrderCommand(String pageToShow, String role) {
         super(pageToShow, role);
@@ -27,7 +32,7 @@ public class CreateOrderCommand extends CommandProtectedPage{
 
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException, SQLException {
 
 // brug facade og mapper til at oprette cupcakes i db. Sideløbende skal der oprettes en cart og en order i db og disse skal kobles
 // sammen ved hjælp af link tabellen som skal udfyldes samtidigt.
@@ -36,33 +41,38 @@ public class CreateOrderCommand extends CommandProtectedPage{
 
         try {
 
-           if(request.getSession().getAttribute("cupcakelist") == null){
-               request.getSession().setAttribute("error", "There is no cupcakes in your shopping cart. Please order some cupcakes first");
-               String pagetoshow = "orderpage";
-               return pagetoshow;
-           }
+            if (request.getSession().getAttribute("cupcakelist") == null) {
+                request.getSession().setAttribute("error", "There is no cupcakes in your shopping cart. Please order some cupcakes first");
+                String pagetoshow = "orderpage";
+                return pagetoshow;
+            }
 
-           List<Cupcake> listy = new ArrayList<>();
-           listy = (List<Cupcake>) request.getSession().getAttribute("cupcakelist");
-           String name = (String) request.getSession().getAttribute("name");
+            List<Cupcake> listy = new ArrayList<>();
+            listy = (List<Cupcake>) request.getSession().getAttribute("cupcakelist");
+            String name = (String) request.getSession().getAttribute("name");
 
-           Cart cart = userFacade.createCart(name);
-           int cart_id = cart.getCartId();
+            Cart cart = userFacade.createCart(name);
+            int cart_id = cart.getCartId();
 
-            for (Cupcake item: listy) {
+            for (Cupcake item : listy) {
 
                 Cupcake cupcake = cupcakeFacade.makeCupcake(item.getBottomId(), item.getTopId(), item.getAmount());
                 int cupcake_id = cupcake.getCupcakeId();
-
-                //udfyld link tabel SAMTIDIGT(vi har cupcake_id og vi har cart_id)
+                cupcakeFacade.insertIntoLinkTable(cart_id, cupcake_id);
             }
 
-            // int price = priceUtil.calculateOrderPrice(listy)
-
+            int price = priceUtil.calculatePrice(listy);
 
             int userId = (Integer) request.getSession().getAttribute("userId");
-            //int balance = (Integer) request.getSession().getAttribute("balance")
-            //if(balance >= price){orderFacade.createorder(userId,price,cart_id);}
+            int balance = (Integer) request.getSession().getAttribute("balance");
+
+            if(balance >= price) {
+                Order order = orderFacade.createOrder(userId,price,cart_id);
+            }
+
+            HttpSession session = request.getSession();
+            session.setAttribute("orderprice", price);
+            session.setAttribute("cart_id", cart);
 
 
 
@@ -89,6 +99,6 @@ public class CreateOrderCommand extends CommandProtectedPage{
         }
 
 
-        return REDIRECT_INDICATOR+pageToShow;
+        return REDIRECT_INDICATOR + pageToShow;
     }
 }

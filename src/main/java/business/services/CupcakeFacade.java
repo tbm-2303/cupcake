@@ -15,8 +15,13 @@ public class CupcakeFacade {
 
 
     public Cupcake makeCupcake(int bottomId, int topId, int amount) throws UserException {
-        Cupcake cupcake = new Cupcake(bottomId,topId,amount);
+        Cupcake cupcake = new Cupcake(bottomId, topId, amount);
         return cupcakeMapper.makeCupcake(cupcake);
+
+    }
+
+    public void insertIntoLinkTable(int cart_id, int cupcake_id) throws UserException {
+        cupcakeMapper.insertIntoLinkTable(cart_id, cart_id);
 
     }
 }
