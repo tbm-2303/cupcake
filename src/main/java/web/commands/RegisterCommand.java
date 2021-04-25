@@ -1,8 +1,6 @@
 package web.commands;
 
-import business.entities.Account;
 import business.entities.User;
-import business.persistence.Database;
 import business.services.UserFacade;
 import business.exceptions.UserException;
 
@@ -29,26 +27,24 @@ public class RegisterCommand extends CommandUnprotectedPage
         String password2 = request.getParameter("password2");
 
 
+
         if (password1.equals(password2))
         {
             //create an Account entity first. Then make an instance of the account object before the user is created.
             // make an account method that will create the account in the db and then save it in the account object.
 
 
-            Account account = userFacade.createAccount();
 
-            User user = userFacade.createUser(name, email, password1, account.getKonto_id()); //account.getId);
+
+            User user = userFacade.createUser(name, email, password1); //account.getId);
 
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
-            session.setAttribute("account", account);
-
             session.setAttribute("name", name);
             session.setAttribute("email", user.getEmail());
             session.setAttribute("role", user.getRole());
             session.setAttribute("userId", user.getId());
-
-            session.setAttribute("balance", account.getBalance());
+            session.setAttribute("balance", user.getBalance());
 
             return user.getRole() + "page";
         }

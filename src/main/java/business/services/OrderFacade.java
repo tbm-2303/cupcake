@@ -15,9 +15,5 @@ public class OrderFacade {
         orderMapper = new OrderMapper(database);
     }
 
-    public Order createOrder(int user_id, int price, int cart_id)throws SQLException, UserException{
-        Order order = new Order(user_id,price,cart_id);
-        return orderMapper.createOrder(order);
 
-    }
 }

@@ -6,27 +6,25 @@ public class User
     private String email;
     private String password; // Should be hashed and secured
     private String role;
-    private int konto_id;
+    private int balance;
     private int id; // just used to demo retrieval of autogen keys in UserMapper
 
-    public User(String name,String email, String password, String role, int konto_id)
+    public User(String name,String email, String password, String role, int balance)
     {
         this.email = email;
         this.password = password;
         this.role = role;
         this.name = name;
-        this.konto_id = konto_id;
+        this.balance = balance;
     }
 
 
-
-
-    public int getKonto_id() {
-        return konto_id;
+    public int getBalance() {
+        return balance;
     }
 
-    public void setKonto_id(int konto_id) {
-        this.konto_id = konto_id;
+    public void setBalance(int balance) {
+        this.balance = balance;
     }
 
     public String getEmail()

@@ -21,14 +21,8 @@
                 Here you can see the items in your shopping cart.
             </div>
 
-            <c:forEach var="cart" items="${sessionScope.cupcakeList}">
-
-${cart.topId.name}
-            </c:forEach>
-
 
             <p style="font-size: medium">Purchase items</p>
-
                 <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/createordercommand">Purchase</a>
 
 

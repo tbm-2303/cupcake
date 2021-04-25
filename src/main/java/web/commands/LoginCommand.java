@@ -1,6 +1,5 @@
 package web.commands;
 
-import business.entities.Account;
 import business.entities.User;
 import business.services.UserFacade;
 import business.exceptions.UserException;
@@ -24,8 +23,6 @@ public class LoginCommand extends CommandUnprotectedPage {
         String password = request.getParameter("password");
 
         try {
-
-
             User user = userFacade.login(email, password);
 
             HttpSession session = request.getSession();
@@ -35,15 +32,13 @@ public class LoginCommand extends CommandUnprotectedPage {
             session.setAttribute("role", user.getRole());
             session.setAttribute("email", user.getEmail());
             session.setAttribute("userId", user.getId());
-            session.setAttribute("kontoId", user.getKonto_id());
-
-            Account account = userFacade.fetchAccount(user.getKonto_id());
-            session.setAttribute("balance",account.getBalance());
-
+            session.setAttribute("balance", user.getBalance());
 
             String pageToShow = user.getRole() + "page";
             return REDIRECT_INDICATOR + pageToShow;
-        } catch (UserException | SQLException ex) {
+
+
+        } catch (UserException ex) {
             request.setAttribute("error", "Wrong username or password!");
             return "loginpage";
         }

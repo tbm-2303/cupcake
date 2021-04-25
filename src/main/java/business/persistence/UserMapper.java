@@ -1,7 +1,5 @@
 package business.persistence;
 
-import business.entities.Account;
-import business.entities.Cart;
 import business.exceptions.UserException;
 import business.entities.User;
 
@@ -14,7 +12,7 @@ public class UserMapper {
         this.database = database;
     }
 
-
+/*
     public Cart createCart(String name) throws SQLException,UserException{
 
 
@@ -42,6 +40,9 @@ public class UserMapper {
 
     }
 
+
+ */
+    /*
     public Account createAccount(Account account) throws SQLException, UserException {
 
         try (Connection connection = database.connect()) {
@@ -65,31 +66,8 @@ public class UserMapper {
     }
 
 
-    public User createUser(User user) throws UserException {
-        try (Connection connection = database.connect()) {
-            String sql = "INSERT INTO users (name, email, password, role, konto_id) VALUES (?, ?, ?, ?, ?)";
-
-
-            try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-                ps.setString(1, user.getName());
-                ps.setString(2, user.getEmail());
-                ps.setString(3, user.getPassword());
-                ps.setString(4, user.getRole());
-                ps.setInt(5, user.getKonto_id());
-                ps.executeUpdate();
-                ResultSet rs = ps.getGeneratedKeys();
-                rs.next();
-                int id = rs.getInt(1);
-                user.setId(id);
-                return user;
-            } catch (SQLException ex) {
-                throw new UserException(ex.getMessage());
-            }
-        } catch (SQLException ex) {
-            throw new UserException(ex.getMessage());
-        }
-    }
-
+     */
+/*
     public Account fetchAccount(int kontoId) throws SQLException, UserException {
 
         try (Connection connection = database.connect()) {
@@ -113,9 +91,37 @@ public class UserMapper {
     }
 
 
+ */
+
+    public User createUser(User user) throws UserException {
+        try (Connection connection = database.connect()) {
+            String sql = "INSERT INTO users (name, email, password, role, balance) VALUES (?, ?, ?, ?, ?)";
+
+
+            try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                ps.setString(1, user.getName());
+                ps.setString(2, user.getEmail());
+                ps.setString(3, user.getPassword());
+                ps.setString(4, user.getRole());
+                ps.setInt(5, user.getBalance());
+                ps.executeUpdate();
+                ResultSet rs = ps.getGeneratedKeys();
+                rs.next();
+                int id = rs.getInt(1);
+                user.setId(id);
+                return user;
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
+            }
+        } catch (SQLException ex) {
+            throw new UserException(ex.getMessage());
+        }
+    }
+
+
     public User login(String email, String password) throws UserException {
         try (Connection connection = database.connect()) {
-            String sql = "SELECT user_id, role, name, konto_id FROM users WHERE email=? AND  password=?";
+            String sql = "SELECT user_id, name, role, balance FROM users WHERE email=? AND  password=?";
 
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
 
@@ -126,8 +132,8 @@ public class UserMapper {
                     String role = rs.getString("role");
                     int user_id = rs.getInt("user_id");
                     String name = rs.getString("name");
-                    int konto_id = rs.getInt("konto_id");
-                    User user = new User(name, email, password, role, konto_id);
+                    int balance = rs.getInt("balance");
+                    User user = new User(name, email, password, role, balance);
                     user.setId(user_id);
                     return user;
                 } else {
@@ -140,5 +146,7 @@ public class UserMapper {
             throw new UserException("Connection to database could not be established");
         }
     }
+
+
 
 }

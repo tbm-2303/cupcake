@@ -2,44 +2,31 @@ package business.entities;
 
 public class Cupcake {
 
-    int cupcakeId;//?
-    int topId;
-    int bottomId;
+    Top top;
+    Bottom bot;
     int amount;
     int price;
 
-    public Cupcake(int topId, int bottomId, int amount) {
-        this.topId = topId;
-        this.bottomId = bottomId;
+    public Cupcake(Top top, Bottom bot, int amount) {
+        this.top = top;
+        this.bot = bot;
         this.amount = amount;
     }
 
-
-
-
-
-    public int getCupcakeId() {
-        return cupcakeId;
+    public Top getTop() {
+        return top;
     }
 
-    public void setCupcakeId(int cupcakeId) {
-        this.cupcakeId = cupcakeId;
+    public void setTop(Top top) {
+        this.top = top;
     }
 
-    public int getTopId() {
-        return topId;
+    public Bottom getBot() {
+        return bot;
     }
 
-    public void setTopId(int topId) {
-        this.topId = topId;
-    }
-
-    public int getBottomId() {
-        return bottomId;
-    }
-
-    public void setBottomId(int bottomId) {
-        this.bottomId = bottomId;
+    public void setBot(Bottom bot) {
+        this.bot = bot;
     }
 
     public int getAmount() {
@@ -50,9 +37,8 @@ public class Cupcake {
         this.amount = amount;
     }
 
-
     public int getPrice() {
-        return price;
+        return ((this.bot.getPrice() + this.top.getPrice()) * amount);
     }
 
     public void setPrice(int price) {

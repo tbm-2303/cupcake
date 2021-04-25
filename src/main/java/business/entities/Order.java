@@ -1,18 +1,15 @@
 package business.entities;
 
 public class Order {
-private int user_id;
-private int price;
-private int cart_id;
-private int order_id;
+    private int user_id;
+    private int price;
+    private int order_id;
 
 
-    public Order(int user_id, int price, int cart_id) {
+    public Order(int user_id, int price) {
         this.user_id = user_id;
         this.price = price;
-        this.cart_id = cart_id;
     }
-
 
     public int getUser_id() {
         return user_id;
@@ -28,14 +25,6 @@ private int order_id;
 
     public void setPrice(int price) {
         this.price = price;
-    }
-
-    public int getCart_id() {
-        return cart_id;
-    }
-
-    public void setCart_id(int cart_id) {
-        this.cart_id = cart_id;
     }
 
     public int getOrder_id() {

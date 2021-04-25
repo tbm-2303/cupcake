@@ -7,18 +7,18 @@ public class Top {
     private int price;
 
 
-    public Top( String name, int price) {
+    public Top(int topId, String name, int price) {
         this.name = name;
         this.price = price;
+        this.topId = topId;
     }
-
 
     public int getTopId() {
         return topId;
     }
 
-    public void setTopId(int bottomId) {
-        this.topId= bottomId;
+    public void setTopId(int topId) {
+        this.topId = topId;
     }
 
     public String getName() {

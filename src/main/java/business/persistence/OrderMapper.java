@@ -13,7 +13,7 @@ public class OrderMapper {
         this.database = database;
     }
 
-
+/*
     public Order createOrder(Order order) throws UserException {
         try (Connection connection = database.connect()) {
             String sql = "INSERT INTO order (user_id, price, cart_id) VALUES (?, ?, ?)";
@@ -37,4 +37,6 @@ public class OrderMapper {
         }
 
     }
+
+ */
 }
