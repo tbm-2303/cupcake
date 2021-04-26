@@ -11,6 +11,15 @@
     <jsp:body>
         <h1>Hello ${sessionScope.email} </h1>
         You are now logged in as a EMPLOYEE of our wonderful site.
+        <c:if test="${sessionScope.role == 'employee' }">
+            <br>
+            Email: ${sessionScope.email}<br>
+            Role: ${sessionScope.role}<br>
+            UserId: ${sessionScope.userId}<br><br>
+            <a href= "${pageContext.request.contextPath}/fc/showCustomers" class="btn btn-lg btn btn-outline-success" role="button">Manage Customers</a>
+            <a href= "${pageContext.request.contextPath}/fc/showorders" class="btn btn-lg btn btn-outline-success" role="button">View All Orders</a>
+            <a href= "${pageContext.request.contextPath}/fc/orderpage" class="btn btn-lg btn btn-outline-success" role="button">se alle ordre</a>
+        </c:if>
 
     </jsp:body>
 </t:genericpage>

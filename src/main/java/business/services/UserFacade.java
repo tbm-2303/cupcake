@@ -5,6 +5,8 @@ import business.persistence.Database;
 import business.persistence.UserMapper;
 import business.exceptions.UserException;
 
+import java.util.List;
+
 public class UserFacade
 {
     UserMapper userMapper;
@@ -44,6 +46,10 @@ public class UserFacade
         User user = new User(name, email, password, "customer", 0);
         User user2 = userMapper.createUser(user);
         return user2;
+    }
+
+    public List<User> fetchAllUsers() throws UserException {
+        return userMapper.fetchAllUsers();
     }
 
 

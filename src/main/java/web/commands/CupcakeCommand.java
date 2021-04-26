@@ -18,8 +18,11 @@ import java.util.List;
 public class CupcakeCommand extends CommandProtectedPage {
     CupcakeFacade cupcakeFacade;
 
+
     public CupcakeCommand(String pageToShow, String role) {
         super(pageToShow, role);
+        this.pageToShow = pageToShow;
+        this.role = role;
         cupcakeFacade = new CupcakeFacade(database);
 
     }
@@ -27,35 +30,26 @@ public class CupcakeCommand extends CommandProtectedPage {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException {
 
+        int topId = Integer.parseInt(request.getParameter("top"));
+        int bottomId = Integer.parseInt(request.getParameter("bottom"));
+        int amount = Integer.parseInt(request.getParameter("amount"));
 
         try {
-            int topId = Integer.parseInt(request.getParameter("top"));
-            int bottomId = Integer.parseInt(request.getParameter("bottom"));
-            int amount = Integer.parseInt(request.getParameter("amount"));
-
-            HttpSession session = request.getSession();
-
-            User user = (User) session.getAttribute("user");
 
             Bottom bot = cupcakeFacade.getBottom(bottomId);
             Top top = cupcakeFacade.getTop(topId);
-            List<Cupcake> cupcakeList2 = (List<Cupcake>) session.getAttribute("cupcakelist");
-            //List<Cupcake> cupcakeList = (List<Cupcake>) request.getSession().getAttribute("cupcakeList");
-            if (cupcakeList2 == null) {
-                cupcakeList2 = new ArrayList<>();
+            List<Cupcake> cupcakeList = (List<Cupcake>) request.getSession().getAttribute("cupcakeList");
+
+            if (cupcakeList == null) {
+                cupcakeList = new ArrayList<>();
             }
-
-            cupcakeList2.add(new Cupcake(top, bot, amount));
-
-            request.getSession().setAttribute("cupcakeList", cupcakeList2);
-
+            cupcakeList.add(new Cupcake(top, bot, amount));
+            request.getSession().setAttribute("cupcakeList", cupcakeList);
 
         } catch (UserException | NumberFormatException e) {
             request.getSession().setAttribute("error", "Your input is not valid");
             return pageToShow;
-
         }
-
         return pageToShow;
     }
 }

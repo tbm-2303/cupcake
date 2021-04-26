@@ -16,29 +16,24 @@ public class CreateCartCommand extends CommandProtectedPage {
 
     public CreateCartCommand(String pageToShow, String role) {
         super(pageToShow, role);
+        this.pageToShow = pageToShow;
+        this.role = role;
     }
 
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException, SQLException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
+
+        List<Cupcake> cupcakeList = (List<Cupcake>) request.getSession().getAttribute("cupcakeList");
         int price = 0;
 
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-
-        List<Cupcake> cupcakeList = (List<Cupcake>) session.getAttribute("cupcakelist");
-
         if (cupcakeList != null) {
-
             for (Cupcake item : cupcakeList) {
                 price += item.getPrice();
             }
-            session.setAttribute("price", price);
-            return pageToShow;
+            request.getSession().setAttribute("price", price);
         }
+        return pageToShow;
 
-        String page = REDIRECT_INDICATOR + "orderpage";
-        request.getSession().setAttribute("error", "no items in cart");
-        return page;
     }
 }

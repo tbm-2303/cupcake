@@ -114,7 +114,7 @@ public class CupcakeMapper {
 
         try (Connection connection = database.connect()) {
 
-            String sql = "INSERT INTO order (user_id, price) VALUES (?, ?)";
+            String sql = "INSERT INTO orderz (user_id, price) VALUES (?, ?)";
 
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setInt(1, user_id);

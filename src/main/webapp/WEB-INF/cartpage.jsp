@@ -22,11 +22,55 @@
             </div>
 
 
-            <p style="font-size: medium">Purchase items</p>
-                <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/createordercommand">Purchase</a>
-
-
         </div>
 
+        <form action="${pageContext.request.contextPath}/fc/updateCommand" method="post">
+            <table class="table table-success table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Bottom</th>
+                    <th scope="col">Topping</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Price</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <c:forEach var="cart" items="${sessionScope.cupcakeList}" varStatus="status">
+                    <tr>
+                        <td>${cart.bot.name}</td>
+                        <td>${cart.top.name}</td>
+                        <td>
+                            <label for="amount"></label><input type="number" class="" id="amount" name="amount" min="0" step="1"
+                                                            value="${cart.amount}">
+                        </td>
+                        <td>${cart.price}</td>
+                        <!-- OrderLine doesn't exist and doesn't have an ID, so we're using the loop index to identify the item selected -->
+                        <td>
+                            <button type="submit" class=" btn btn-danger" name="remove" value="${status.index}">Fjern
+                            </button>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+
+            <c:if test="${requestScope.error != null}">
+                <p style="color: red">${requestScope.error}</p>
+            </c:if>
+            <div class="card">
+                <c:if test="${sessionScope.cupcakeList != null && sessionScope.price != null}">
+                    <input type="submit" class="btn btn-outline-primary" name="updateCommand"
+                           value="Opdate ShoppingCart">
+                </c:if>
+
+            </div>
+        </form>
+
+        <c:if test="${sessionScope.cupcakeList != null && not empty sessionScope.cupcakeList && sessionScope.price != null}">
+            <div class="card">
+                <a href="${pageContext.request.contextPath}/fc/createordercommand" class="btn btn-outline-success"
+                   role="button">Tryk her for at betale</a>
+            </div>
+            <p class="h3">Total: ${sessionScope.price}</p>
+        </c:if>
     </jsp:body>
 </t:genericpage>

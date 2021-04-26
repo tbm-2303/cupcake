@@ -13,34 +13,26 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class CreateOrderCommand extends CommandProtectedPage {
-    private OrderFacade orderFacade;
-    private CupcakeFacade cupcakeFacade;
-    private UserFacade userFacade;
+    CupcakeFacade cupcakeFacade;
 
 
     public CreateOrderCommand(String pageToShow, String role) {
         super(pageToShow, role);
-        orderFacade = new OrderFacade(database);
         cupcakeFacade = new CupcakeFacade(database);
-        userFacade = new UserFacade(database);
-
     }
 
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException, SQLException {
-        User user = (User) request.getSession().getAttribute("user");
-        int balance = user.getBalance();
-        int price = (Integer) request.getSession().getAttribute("price");
 
-        List<Cupcake> cupakeList = (List<Cupcake>) request.getSession().getAttribute("cupcakelist");
-
+            User user = (User) request.getSession().getAttribute("user");
+            int balance = user.getBalance();
+            int price = (Integer) request.getSession().getAttribute("price");
 
 
-
-
-
-
+            List<Cupcake> cupakeList = (List<Cupcake>) request.getSession().getAttribute("cupcakeList");
+            cupcakeFacade.makeOrder(user.getId(),price,cupakeList);
+            cupakeList.clear();
 
         return pageToShow;
     }

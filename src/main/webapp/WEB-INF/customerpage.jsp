@@ -12,20 +12,16 @@
     <jsp:body>
         <h1>Hello ${sessionScope.name} </h1>
         You are now logged in as a Customer.
-        <br>
-        Email: ${sessionScope.email}
-        <br>
-        Role: ${sessionScope.role}
-        <br>
-        UserId: ${sessionScope.userId}
-        <br>
-        <p><a href= "${pageContext.request.contextPath}/fc/orderpage">Ordering Page</a>
 
-        <br>
-            Bottom Id: ${sessionScope.bottom}<br>
-            Top Id: ${sessionScope.top}<br>
-            Amount: ${sessionScope.amount}<br></p>
-
+        <c:if test="${sessionScope.role == 'customer' }">
+            <br>
+            Email: ${sessionScope.email}<br>
+            Role: ${sessionScope.role}<br>
+            UserId: ${sessionScope.userId}<br><br>
+            <a href= "${pageContext.request.contextPath}/fc/orderpage" class="btn btn-lg btn btn-outline-success" role="button">Ordering Page</a>
+            <a href= "${pageContext.request.contextPath}/fc/orderpage" class="btn btn-lg btn btn-outline-success" role="button">Order history</a>
+            <a href= "${pageContext.request.contextPath}/fc/orderpage" class="btn btn-lg btn btn-outline-success" role="button">Insert money</a>
+        </c:if>
 
 
     </jsp:body>

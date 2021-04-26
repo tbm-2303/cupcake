@@ -34,8 +34,8 @@ public class LoginCommand extends CommandUnprotectedPage {
             session.setAttribute("userId", user.getId());
             session.setAttribute("balance", user.getBalance());
 
-            String pageToShow = user.getRole() + "page";
-            return REDIRECT_INDICATOR + pageToShow;
+            String pageToShow2 = user.getRole() + "page";
+            return REDIRECT_INDICATOR + pageToShow2;
 
 
         } catch (UserException ex) {

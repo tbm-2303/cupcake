@@ -14,7 +14,10 @@
 
         <h1>Hello ${sessionScope.name} </h1>
         Please order some cupcakes! <br>
-        <form method="post" action="${pageContext.request.contextPath}/fc/cupcakecommand">
+
+
+        <form id="form" method="post" action="${pageContext.request.contextPath}/fc/cupcakecommand">
+
             <label for="top">Choose a top:</label>
             <select name="top" id="top">
                 <optgroup label="Cupcake tops">
@@ -60,10 +63,16 @@
 
 
             <div>
-                <button type="submit" class="btn btn-primary">order</button>
+                <button type="submit" class="btn btn-lg btn btn-outline-success">order</button>
             </div>
         </form>
 
+
+        <c:if test="${requestScope.error != null }">
+            <p style="color:red">
+                    ${requestScope.error}
+            </p>
+        </c:if>
     </jsp:body>
 
 </t:genericpage>
