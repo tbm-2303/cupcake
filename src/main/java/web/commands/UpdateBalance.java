@@ -19,8 +19,6 @@ public class UpdateBalance extends CommandProtectedPage {
         this.userFacade = new UserFacade(database);
     }
 
-    List<Integer> balanceList = new ArrayList<>();
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException, SQLException {
 

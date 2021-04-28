@@ -30,7 +30,12 @@ public class CupcakeFacade {
     public Order makeOrder(int user_id, int price, List<Cupcake> list) throws UserException {
         return cupcakeMapper.makeOrder(user_id,price,list);
     }
-
+    public List<Bottom> getAllBottoms() throws UserException {
+        return cupcakeMapper.getAllBottoms();
+    }
+    public List<Top> getAllTops() throws UserException {
+        return cupcakeMapper.getAllTops();
+    }
 /*
     public void insertIntoLinkTable(int cart_id, int cupcake_id) throws UserException {
         cupcakeMapper.insertIntoLinkTable(cart_id, cart_id);

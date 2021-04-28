@@ -24,16 +24,32 @@ public class CreateOrderCommand extends CommandProtectedPage {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException, SQLException {
+        try {
+        List<Cupcake> cupakeList = (List<Cupcake>) request.getSession().getAttribute("cupcakeList");
+        int price = (int) request.getSession().getAttribute("price");
+        int userId = (int) request.getSession().getAttribute("userId");
+        int balance = (int) request.getSession().getAttribute("balance");
 
-            User user = (User) request.getSession().getAttribute("user");
-            int balance = user.getBalance();
-            int price = (Integer) request.getSession().getAttribute("price");
+            if (balance < price) {
+                cupakeList.clear();
+                price = 0;
+                request.getSession().setAttribute("price", price);
+                request.getSession().setAttribute("cupcakeList", cupakeList);
+                request.getSession().setAttribute("error", "insufficient balance on your account");
+            } else {
+                cupcakeFacade.makeOrder(userId, price, cupakeList);
+                int newBalance = balance - price;
+                request.getSession().setAttribute("balance", newBalance);
+                cupakeList.clear();
+                request.getSession().setAttribute("cupcakeList", cupakeList);
+                price = 0;
+                request.getSession().setAttribute("price", price);
+            }
+            return "customerpage";
+        } catch (UserException e) {
+            request.setAttribute("error", "insufficient balance on your account!");
+            return "customerpage";
+        }
 
-
-            List<Cupcake> cupakeList = (List<Cupcake>) request.getSession().getAttribute("cupcakeList");
-            cupcakeFacade.makeOrder(user.getId(),price,cupakeList);
-            cupakeList.clear();
-
-        return pageToShow;
     }
 }

@@ -23,7 +23,7 @@ public class OrderMapper {
                 ResultSet rs = ps.executeQuery();
                 List<Order> listy = new ArrayList<>();
                 while (rs.next()) {
-                    int order_id = rs.getInt("user_id");
+                    int order_id = rs.getInt("order_id");
                     int user_id = rs.getInt("user_id");
                     int price = rs.getInt("price");
                     Order order = new Order(user_id,price);

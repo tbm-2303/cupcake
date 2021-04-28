@@ -1,12 +1,10 @@
 package business.persistence;
 
-import business.entities.Bottom;
-import business.entities.Cupcake;
-import business.entities.Order;
-import business.entities.Top;
+import business.entities.*;
 import business.exceptions.UserException;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CupcakeMapper {
@@ -86,6 +84,54 @@ public class CupcakeMapper {
         }
     }
 
+
+    public List<Bottom> getAllBottoms() throws UserException {
+        try (Connection connection = database.connect()) {
+            String sql = "SELECT bottom_id, name, price FROM bottom";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+                List<Bottom> listy = new ArrayList<>();
+                while (rs.next()) {
+                    int bottom_id = rs.getInt("bottom_id");
+                    String name = rs.getString("name");
+                    int price = rs.getInt("price");
+                    Bottom bot = new Bottom(bottom_id, name, price);
+
+                    listy.add(bot);
+                }
+                return listy;
+            }
+        } catch (
+                SQLException ex) {
+            throw new UserException("Connection to database could not be established");
+        }
+    }
+
+    public List<Top> getAllTops() throws UserException {
+        try (Connection connection = database.connect()) {
+            String sql = "SELECT top_id, name, price FROM top";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+                List<Top> listy = new ArrayList<>();
+                while (rs.next()) {
+                    int top_id = rs.getInt("top_id");
+                    String name = rs.getString("name");
+                    int price = rs.getInt("price");
+                    Top top = new Top(top_id, name, price);
+
+                    listy.add(top);
+                }
+                return listy;
+            }
+        } catch (
+                SQLException ex) {
+            throw new UserException("Connection to database could not be established");
+        }
+    }
+
+
     public Top getTop(int topId) throws UserException {
         try (Connection connection = database.connect()) {
             String sql = "SELECT * FROM top WHERE top_id = ?";
@@ -123,11 +169,11 @@ public class CupcakeMapper {
                 ResultSet rs = ps.getGeneratedKeys();
                 rs.next();
                 int id = rs.getInt(1);
-                Order order = new Order(user_id,price);
+                Order order = new Order(user_id, price);
                 order.setOrder_id(id);
 
-                for (Cupcake item: list) {
-                    InsertCartTable(item,order.getOrder_id());
+                for (Cupcake item : list) {
+                    InsertCartTable(item, order.getOrder_id());
                 }
 
                 return order;

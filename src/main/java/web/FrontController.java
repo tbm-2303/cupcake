@@ -1,12 +1,16 @@
 package web;
 
+import business.entities.Bottom;
+import business.entities.Top;
 import business.exceptions.UserException;
 import business.persistence.Database;
+import business.services.CupcakeFacade;
 import web.commands.*;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -38,7 +42,16 @@ public class FrontController extends HttpServlet
                 Logger.getLogger("web").log(Level.SEVERE, ex.getMessage(), ex);
             }
         }
+        CupcakeFacade cupcakeFacade = new CupcakeFacade(database);
+        try{
+            List<Top>topList = cupcakeFacade.getAllTops();
+            getServletContext().setAttribute("topList", topList);
+            List<Bottom> botList = cupcakeFacade.getAllBottoms();
+            getServletContext().setAttribute("botList", botList);
 
+        } catch (UserException exception) {
+            exception.printStackTrace();
+        }
         // Initialize whatever global datastructures needed here:
 
     }

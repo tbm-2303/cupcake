@@ -30,13 +30,8 @@ public class RegisterCommand extends CommandUnprotectedPage
 
         if (password1.equals(password2))
         {
-            //create an Account entity first. Then make an instance of the account object before the user is created.
-            // make an account method that will create the account in the db and then save it in the account object.
 
-
-
-
-            User user = userFacade.createUser(name, email, password1); //account.getId);
+            User user = userFacade.createUser(name, email, password1);
 
             HttpSession session = request.getSession();
             session.setAttribute("user", user);

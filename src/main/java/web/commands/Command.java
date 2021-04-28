@@ -31,7 +31,7 @@ public abstract class Command
         commands.put("employeepage", new CommandProtectedPage("employeepage", "employee"));
         commands.put("orderpage", new CommandProtectedPage("orderpage","customer"));
         commands.put("showcartCommand", new CreateCartCommand("cartpage","customer"));
-        commands.put("cupcakecommand", new CupcakeCommand("orderpage","customer"));
+        commands.put("cupcakecommand", new CupcakeCommand("cartpage","customer"));
         commands.put("createordercommand", new CreateOrderCommand("customerpage", "customer"));
         commands.put("updateCommand", new UpdateCommand("cartpage", "customer"));
         commands.put("showCustomers", new showCustomersCommand("managecustomerspage", "employee"));

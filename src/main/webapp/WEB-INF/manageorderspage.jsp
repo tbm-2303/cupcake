@@ -18,7 +18,7 @@
             <h2>ManageCustomerPage</h2>
 
             <div style="margin-top: 3em;margin-bottom: 3em;">
-                Here you can manage you customers balance.
+                All Orders
             </div>
         </div>
 

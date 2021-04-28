@@ -1,5 +1,6 @@
 package business.services;
 
+import business.entities.Bottom;
 import business.entities.User;
 import business.persistence.Database;
 import business.persistence.UserMapper;
@@ -51,6 +52,8 @@ public class UserFacade
     public List<User> fetchAllUsers() throws UserException {
         return userMapper.fetchAllUsers();
     }
+
+
 
 
 

@@ -29,12 +29,10 @@ public class CupcakeCommand extends CommandProtectedPage {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException {
-
-        int topId = Integer.parseInt(request.getParameter("top"));
-        int bottomId = Integer.parseInt(request.getParameter("bottom"));
-        int amount = Integer.parseInt(request.getParameter("amount"));
-
         try {
+        int topId = Integer.parseInt(request.getParameter("top"));
+        int bottomId = Integer.parseInt(request.getParameter("bot"));
+        int amount = Integer.parseInt(request.getParameter("amount"));
 
             Bottom bot = cupcakeFacade.getBottom(bottomId);
             Top top = cupcakeFacade.getTop(topId);
@@ -45,10 +43,15 @@ public class CupcakeCommand extends CommandProtectedPage {
             }
             cupcakeList.add(new Cupcake(top, bot, amount));
             request.getSession().setAttribute("cupcakeList", cupcakeList);
+            int price = 0;
+                for (Cupcake item : cupcakeList) {
+                    price += item.getPrice();
+                }
+            request.getSession().setAttribute("price", price);
 
         } catch (UserException | NumberFormatException e) {
             request.getSession().setAttribute("error", "Your input is not valid");
-            return pageToShow;
+            return "orderpage";
         }
         return pageToShow;
     }

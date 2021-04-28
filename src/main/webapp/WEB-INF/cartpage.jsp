@@ -53,24 +53,29 @@
                 </c:forEach>
             </table>
 
-            <c:if test="${requestScope.error != null}">
-                <p style="color: red">${requestScope.error}</p>
-            </c:if>
+
             <div class="card">
                 <c:if test="${sessionScope.cupcakeList != null && sessionScope.price != null}">
                     <input type="submit" class="btn btn-outline-primary" name="updateCommand"
-                           value="Opdate ShoppingCart">
+                           value="Opdate ShoppingCart Balance">
                 </c:if>
 
             </div>
+            <c:if test="${requestScope.error != null}">
+                <p style="color: red">${requestScope.error}</p>
+            </c:if>
         </form>
+
+
 
         <c:if test="${sessionScope.cupcakeList != null && not empty sessionScope.cupcakeList && sessionScope.price != null}">
             <div class="card">
                 <a href="${pageContext.request.contextPath}/fc/createordercommand" class="btn btn-outline-success"
-                   role="button">Tryk her for at betale</a>
+                   role="button">Gå til betaling</a>
             </div>
             <p class="h3">Total: ${sessionScope.price}</p>
         </c:if>
+
+
     </jsp:body>
 </t:genericpage>

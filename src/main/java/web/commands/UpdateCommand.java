@@ -22,15 +22,11 @@ public class UpdateCommand extends CommandProtectedPage {
         List<Cupcake> cupcakeList = (List<Cupcake>) request.getSession().getAttribute("cupcakeList");
         List<Integer> amountsListInteger = new ArrayList<>();
 
-        try {
-            List<String> parameterListString = Arrays.asList(request.getParameterValues("amount"));
 
-            for (String string : parameterListString) {
-                amountsListInteger.add(Integer.parseInt(string));
-            }
-        } catch (NumberFormatException e) {
-            request.setAttribute("error", "not valid input");
-            return pageToShow;
+        List<String> parameterListString = Arrays.asList(request.getParameterValues("amount"));
+
+        for (String string : parameterListString) {
+            amountsListInteger.add(Integer.parseInt(string));
         }
 
         for (int i = 0; i < cupcakeList.size(); ++i) {
@@ -41,11 +37,13 @@ public class UpdateCommand extends CommandProtectedPage {
         if (remove != null) {
             cupcakeList.remove(Integer.parseInt(remove));
         }
-        for (Cupcake item: cupcakeList) {
-            if(item.getAmount() <= 0){
+        for (Cupcake item : cupcakeList) {
+            if (item.getAmount() <= 0) {
                 cupcakeList.remove(item);
             }
         }
+
+
         int price = 0;
         if (cupcakeList != null) {
             for (Cupcake item : cupcakeList) {

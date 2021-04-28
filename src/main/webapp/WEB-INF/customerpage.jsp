@@ -19,8 +19,8 @@
             Role: ${sessionScope.role}<br>
             UserId: ${sessionScope.userId}<br><br>
             <a href= "${pageContext.request.contextPath}/fc/orderpage" class="btn btn-lg btn btn-outline-success" role="button">Ordering Page</a>
-            <a href= "${pageContext.request.contextPath}/fc/orderpage" class="btn btn-lg btn btn-outline-success" role="button">Order history</a>
-            <a href= "${pageContext.request.contextPath}/fc/orderpage" class="btn btn-lg btn btn-outline-success" role="button">Insert money</a>
+            <a href= "${pageContext.request.contextPath}/#" class="btn btn-lg btn btn-outline-success" role="button">Order history</a>
+            <a href= "${pageContext.request.contextPath}/#" class="btn btn-lg btn btn-outline-success" role="button">Insert money</a>
         </c:if>
 
 

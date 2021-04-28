@@ -18,7 +18,7 @@
             <h2>ManageCustomerPage</h2>
 
             <div style="margin-top: 3em;margin-bottom: 3em;">
-                Here you can manage you customers balance.
+                All customers and employees
             </div>
         </div>
 
@@ -34,7 +34,7 @@
                 <th></th>
             </tr>
             </thead>
-            <c:forEach var="customer" items="${sessionScope.customerList}">
+            <c:forEach var="customer" items="${sessionScope.customerList}" varStatus="status_index">
                 <tr>
                     <td>${customer.id}</td>
                     <td>${customer.name}</td>
@@ -49,7 +49,7 @@
                 <c:if test="${sessionScope.customerList != null}">
                     <div class="card">
                         <a href="${pageContext.request.contextPath}/fc/updatebalance" class="btn btn-outline-success"
-                           role="button">Opdate balances</a>
+                           role="button">refresh data with current DB data point</a>
                     </div>
                 </c:if>
 
